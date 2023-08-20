@@ -2,7 +2,8 @@ from datetime import datetime
 
 
 from .engine import Base
-from sqlalchemy import Column, Integer, DateTime, Text
+from sqlalchemy import Column, Integer, DateTime, Text, String
+from fastapi_users.db import SQLAlchemyBaseUserTable
 
 
 class DBLog(Base):
@@ -13,4 +14,7 @@ class DBLog(Base):
     message = Column(Text, nullable=False)
 
 
+class DBUser(SQLAlchemyBaseUserTable[int], Base):
+    id = Column(Integer, primary_key=True)
+    username = Column(String, nullable=False)
 
