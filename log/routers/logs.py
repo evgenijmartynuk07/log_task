@@ -1,10 +1,10 @@
 from datetime import datetime
-from sqlalchemy import and_
+from sqlalchemy import and_, Row, RowMapping
 from sqlalchemy.future import select
 from fastapi import APIRouter, Depends, Query
-from sqlalchemy.orm import Session
-from typing import List, Optional
+from typing import List, Optional, Any, Sequence
 from log import schemas
+from sqlalchemy.ext.asyncio import AsyncSession
 from log.auth.permissions import current_active_user
 from log.db.models import DBLog, DBUser
 from log.db.engine import get_db
@@ -28,8 +28,8 @@ async def get_logs(
             None,
             description="Keywords for filtering. Ex: Get, post ect"
         ),
-        db: Session = Depends(get_db)
-):
+        db: AsyncSession = Depends(get_db)
+) -> Sequence[Row | RowMapping | Any]:
 
     async with db.begin():
         query = select(DBLog)
@@ -52,12 +52,20 @@ async def get_logs(
 
 
 @router.post("/upload_logs/")
-async def upload_logs(file: schemas.UploadFile, db: Session = Depends(get_db)):
+async def upload_logs(
+        file: schemas.UploadFile,
+        db: AsyncSession = Depends(get_db)
+) -> dict:
+
     await process_uploaded_file(file, db)
     return {"message": "Logs uploaded successfully to Database"}
 
 
 @router.post("/upload_archive/")
-async def upload_logs(file: schemas.UploadFile, db: Session = Depends(get_db)):
-    process = process_uploaded_archive(file, db)
+async def upload_archive(
+        file: schemas.UploadFile,
+        db: AsyncSession = Depends(get_db)
+) -> dict:
+
+    process = await process_uploaded_archive(file, db)
     return {"message": process}

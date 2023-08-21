@@ -1,10 +1,16 @@
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
+from sqlalchemy.ext.asyncio import (
+    AsyncSession,
+    create_async_engine,
+    async_sessionmaker
+)
 from typing import AsyncGenerator
+from config import DATABASE, DB_NAME, AIO_DB
+from dotenv import load_dotenv
 
-from fastapi import Depends
+load_dotenv()
 
-SQLALCHEMY_DATABASE_URL = "sqlite+aiosqlite:///./logs.db"
+SQLALCHEMY_DATABASE_URL = f"{DATABASE}+{AIO_DB}:///./{DB_NAME}.db"
 
 Base = declarative_base()
 
@@ -30,4 +36,3 @@ async def get_db():
         yield db
     finally:
         await db.close()
-
