@@ -6,8 +6,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi_users import BaseUserManager, IntegerIDMixin
 from fastapi_users.db import SQLAlchemyUserDatabase
 
-from log.db.engine import get_async_session
-from log.db.models import DBUser
+from db.engine import get_async_session
+from user.models import DBUser
 
 
 async def get_user_db(

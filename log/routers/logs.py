@@ -5,9 +5,10 @@ from fastapi import APIRouter, Depends, Query
 from typing import List, Optional, Any, Sequence
 from log import schemas
 from sqlalchemy.ext.asyncio import AsyncSession
-from log.auth.permissions import current_active_user
-from log.db.models import DBLog, DBUser
-from log.db.engine import get_db
+from user.auth.permissions import current_active_user
+from user.models import DBUser
+from log.models import DBLog
+from db.engine import get_db
 from log.loging_format import process_uploaded_file, process_uploaded_archive
 
 router = APIRouter()

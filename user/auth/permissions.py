@@ -1,7 +1,7 @@
-from log.auth.manager import get_user_manager
+from user.auth.manager import get_user_manager
 from fastapi_users import FastAPIUsers
-from log.db.models import DBUser
-from log.auth.auth import auth_backend
+from user.models import DBUser
+from user.auth.auth import auth_backend
 
 fastapi_users = FastAPIUsers[DBUser, int](
     get_user_manager,

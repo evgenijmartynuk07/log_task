@@ -8,7 +8,7 @@ import tempfile
 import shutil
 import zipfile
 import py7zr
-import rarfile as rarfile
+import rarfile
 
 
 def create_zip_file(file_list, temp_dir) -> zipfile:

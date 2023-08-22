@@ -6,9 +6,7 @@ from sqlalchemy.ext.asyncio import (
 )
 from typing import AsyncGenerator
 from config import DATABASE, DB_NAME, AIO_DB
-from dotenv import load_dotenv
 
-load_dotenv()
 
 SQLALCHEMY_DATABASE_URL = f"{DATABASE}+{AIO_DB}:///./{DB_NAME}.db"
 

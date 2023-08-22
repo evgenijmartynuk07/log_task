@@ -52,7 +52,7 @@ def mock_current_not_active_user():
 
 def test_get_logs_unauthorized():
     with patch(
-            'log.auth.permissions.current_active_user',
+            'user.auth.permissions.current_active_user',
             mock_current_not_active_user
     ):
         client = TestClient(app)

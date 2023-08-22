@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import UploadFile
 
 from log.archive_read import archive_reader
-from log.db.models import DBLog
+from log.models import DBLog
 
 
 async def process_uploaded_file(file: UploadFile, db: AsyncSession) -> None:
